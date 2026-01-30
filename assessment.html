@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="assessment.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <main class="question-shell">
+        <section class="question-card tech-glow">
+            <div class="question-progress" id="progressText">Question 1 of 15</div>
+            <h1 class="question-title" id="questionTitle">Loading...</h1>
+            <div class="option-grid" id="optionGrid"></div>
+            <div class="question-actions">
+                <button class="nav-arrow" id="prevBtn" aria-label="Previous question">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15.5 5.5 9 12l6.5 6.5-1.4 1.4L6.2 12l7.9-7.9z"/>
+                    </svg>
+                </button>
+                <button class="primary-btn" id="nextBtn">Next</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

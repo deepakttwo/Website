@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <header id="home">
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Mental Health</h1>
+                <p class="subtitle">A calm mind is a strong mind. Explore insights, take a quick check-in, and build healthier habits.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-value">Live</span>
+                    <span class="stat-label">Survey Insights</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">15</span>
+                    <span class="stat-label">Quick Questions</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Well-being Zones</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="page">
+        <section id="graphs" class="section-card">
+            <h2>Survey Results Graphs</h2>
+            <p class="muted">Live visual summaries based on the provided survey data.</p>
+            <div class="graph-grid">
+                <div class="graph-card">
+                    <h3>Age Distribution</h3>
+                    <canvas id="ageChart" width="420" height="260"></canvas>
+                </div>
+                <div class="graph-card">
+                    <h3>Gender Split</h3>
+                    <canvas id="genderChart" width="420" height="260"></canvas>
+                </div>
+                <div class="graph-card">
+                    <h3>Study Level</h3>
+                    <canvas id="studyChart" width="420" height="260"></canvas>
+                </div>
+                <div class="graph-card">
+                    <h3>Stress Frequency</h3>
+                    <canvas id="stressChart" width="420" height="260"></canvas>
+                </div>
+            </div>
+        </section>
+        <section id="survey-info" class="section-card">
+            <h2>Demographic Profile</h2>
+            <p>Age: Majority of respondents are 21–25 years (40.4%), followed by 18–21 (24.7%) and 16–18 (19.9%). A smaller group is above 25 (11.6%), with minimal participation under 16.</p>
+            <p>Gender: Nearly balanced participation with Females (51.4%) and Males (48.6%).</p>
+            <p>Level of Study: Respondents are mainly School students (28.1%), Undergraduates (26%), and Postgraduates (26%), followed by Engineering students (14.4%). Medical and PhD students form a very small proportion.</p>
+            <div class="section-card info-card">
+                <h2>Mental Health</h2>
+                <p class="muted">Mental health is about how we think, feel, and cope with everyday life. Small daily choices—sleep, movement, connection, and mindful breaks—can create big, positive changes over time.</p>
+            </div>
+            <h2>Take Your Test</h2>
+            <a class="primary-btn" href="assessment.html">Take your test</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Raghul Krishna - 2026</p>
+    </footer>
+</body>
+</html>

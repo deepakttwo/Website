@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Result</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="result.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <main class="result-shell">
+        <section class="odometer-card tech-glow">
+            <h1>Mental Health Meter</h1>
+            <p class="muted">Your pointer will move slowly to your score zone.</p>
+            <div class="odometer-wrap">
+                <canvas id="odometer" class="odometer-dial" width="320" height="180"></canvas>
+                <div id="dialPointer" class="dial-pointer"></div>
+                <div class="dial-center"></div>
+            </div>
+            <div class="result-badge" id="scoreBadge">Score: 0/100</div>
+            <p class="result-message" id="resultMessage"></p>
+            <button class="primary-btn" id="homeBtn">Go to Home</button>
+        </section>
+    </main>
+</body>
+</html>
