@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Mental Health</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Gallery-specific styles */
+        .gallery-page {
+            min-height: 100vh;
+            padding: 80px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #e2e8f0;
+        }
+
+        .gallery-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2dd4bf, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gallery-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .gallery-tab {
+            padding: 12px 28px;
+            background: rgba(45, 55, 72, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-tab:hover {
+            background: rgba(45, 212, 191, 0.2);
+            border-color: #2dd4bf;
+        }
+
+        .gallery-tab.active {
+            background: linear-gradient(135deg, #2dd4bf, #06b6d4);
+            border-color: transparent;
+            color: #0f172a;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background: #0f172a;
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: #e2e8f0;
+        }
+
+        .gallery-item-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gallery-item-type {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .video-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(45, 212, 191, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .video-play-icon::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid #0f172a;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 5px;
+        }
+
+        .gallery-item:hover .video-play-icon {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-content img,
+        .lightbox-content video {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #2dd4bf;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(45, 212, 191, 0.8);
+            border: none;
+            color: #0f172a;
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: #2dd4bf;
+        }
+
+        .lightbox-prev {
+            left: -70px;
+        }
+
+        .lightbox-next {
+            right: -70px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2dd4bf;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #5eead4;
+        }
+
+        .back-link::before {
+            content: '←';
+            font-size: 1.2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Hamburger Menu Icon -->
+    <button id="hamburgerBtn" class="hamburger-menu" aria-label="Toggle navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Side Navigation Panel -->
+    <nav id="sideNav" class="side-nav">
+        <div class="nav-header">
+            <h2>Menu</h2>
+            <button id="closeNavBtn" class="nav-close" aria-label="Close navigation menu">&times;</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="std-goals.html">STD Goals</a></li>
+            <li><a href="expert-opinion.html">Expert Opinion</a></li>
+            <li><a href="support-resources.html">Support Services</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div id="navOverlay" class="nav-overlay"></div>
+
+    <main class="gallery-page">
+        <header class="gallery-header">
+            <h1>Gallery</h1>
+            <p>Photos and videos from our mental health awareness activities</p>
+        </header>
+
+        <div class="gallery-tabs">
+            <button class="gallery-tab active" data-filter="all">All</button>
+            <button class="gallery-tab" data-filter="images">Images</button>
+            <button class="gallery-tab" data-filter="videos">Videos</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Gallery items will be loaded dynamically -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-state-icon">📷</div>
+            <p>No media found</p>
+        </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+            <div id="lightboxMedia"></div>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+        </div>
+    </div>
+
+    <script>
+        // Media files in the Image folder
+        const mediaFiles = [
+            { name: 'IMG_3326.jpeg', type: 'image' },
+            { name: 'IMG_3327.jpeg', type: 'image' },
+            { name: 'IMG_3328.jpeg', type: 'image' },
+            { name: 'IMG_3329.jpeg', type: 'image' },
+            { name: 'IMG_3330.jpeg', type: 'image' },
+            { name: 'IMG_3331.jpeg', type: 'image' },
+            { name: 'IMG_3332.jpeg', type: 'image' },
+            { name: 'IMG_3333.jpeg', type: 'image' },
+            { name: 'IMG_3334.jpeg', type: 'image' },
+            { name: 'IMG_3335.jpeg', type: 'image' },
+            { name: 'IMG_3336.jpeg', type: 'image' },
+            { name: 'IMG_3337.jpeg', type: 'image' },
+            { name: 'IMG_3338.jpeg', type: 'image' },
+            { name: 'IMG_3339.jpeg', type: 'image' },
+            { name: 'IMG_3340.jpeg', type: 'image' },
+            { name: 'IMG_3341.jpeg', type: 'image' },
+            { name: 'IMG_3342.jpeg', type: 'image' },
+            { name: 'IMG_3343.jpeg', type: 'image' },
+            { name: 'IMG_3344.jpeg', type: 'image' },
+            { name: 'IMG_3345.jpeg', type: 'image' },
+            { name: 'IMG_3346.jpeg', type: 'image' },
+            { name: 'IMG_3347.jpeg', type: 'image' },
+            { name: 'IMG_3348.jpeg', type: 'image' },
+            { name: 'IMG_3349.jpeg', type: 'image' },
+            { name: 'IMG_3350.jpeg', type: 'image' },
+            { name: 'VIDEO-2026-02-01-00-23-43.mp4', type: 'video' },
+            { name: 'VIDEO-2026-02-01-00-23-45.mp4', type: 'video' },
+            { name: 'VIDEO-2026-02-01-00-23-47.mp4', type: 'video' },
+            { name: 'VIDEO-2026-02-01-00-23-48.mp4', type: 'video' },
+            { name: 'VIDEO-2026-02-01-00-23-49.mp4', type: 'video' },
+            { name: 'VIDEO-2026-02-01-00-23-50.mp4', type: 'video' },
+            { name: 'VIDEO-2026-02-01-00-23-51.mp4', type: 'video' }
+        ];
+
+        const galleryGrid = document.getElementById('galleryGrid');
+        const emptyState = document.getElementById('emptyState');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxMedia = document.getElementById('lightboxMedia');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const tabs = document.querySelectorAll('.gallery-tab');
+
+        let currentFilter = 'all';
+        let currentIndex = 0;
+        let filteredMedia = [...mediaFiles];
+
+        // Render gallery items
+        function renderGallery(filter = 'all') {
+            currentFilter = filter;
+            galleryGrid.innerHTML = '';
+
+            filteredMedia = mediaFiles.filter(file => {
+                if (filter === 'all') return true;
+                if (filter === 'images') return file.type === 'image';
+                if (filter === 'videos') return file.type === 'video';
+                return true;
+            });
+
+            if (filteredMedia.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            filteredMedia.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.dataset.index = index;
+
+                if (file.type === 'image') {
+                    item.innerHTML = `
+                        <img src="Image/${file.name}" alt="${file.name}" loading="lazy">
+                        <div class="gallery-item-overlay">
+                            <div class="gallery-item-name">${file.name}</div>
+                            <div class="gallery-item-type">Image</div>
+                        </div>
+                    `;
+                } else {
+                    item.innerHTML = `
+                        <video src="Image/${file.name}" preload="metadata"></video>
+                        <div class="video-play-icon"></div>
+                        <div class="gallery-item-overlay">
+                            <div class="gallery-item-name">${file.name}</div>
+                            <div class="gallery-item-type">Video</div>
+                        </div>
+                    `;
+                }
+
+                item.addEventListener('click', () => openLightbox(index));
+                galleryGrid.appendChild(item);
+            });
+        }
+
+        // Open lightbox
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightboxContent();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            // Stop any playing videos
+            const video = lightboxMedia.querySelector('video');
+            if (video) video.pause();
+        }
+
+        // Update lightbox content
+        function updateLightboxContent() {
+            const file = filteredMedia[currentIndex];
+            if (file.type === 'image') {
+                lightboxMedia.innerHTML = `<img src="Image/${file.name}" alt="${file.name}">`;
+            } else {
+                lightboxMedia.innerHTML = `<video src="Image/${file.name}" controls autoplay></video>`;
+            }
+        }
+
+        // Navigate lightbox
+        function navigateLightbox(direction) {
+            const video = lightboxMedia.querySelector('video');
+            if (video) video.pause();
+
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = filteredMedia.length - 1;
+            if (currentIndex >= filteredMedia.length) currentIndex = 0;
+            updateLightboxContent();
+        }
+
+        // Event listeners
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                renderGallery(tab.dataset.filter);
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+        lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Hamburger menu functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sideNav = document.getElementById('sideNav');
+        const closeNavBtn = document.getElementById('closeNavBtn');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openMenu() {
+            hamburgerBtn.classList.add('active');
+            sideNav.classList.add('open');
+            navOverlay.classList.add('active');
+        }
+
+        function closeMenu() {
+            hamburgerBtn.classList.remove('active');
+            sideNav.classList.remove('open');
+            navOverlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', () => {
+            sideNav.classList.contains('open') ? closeMenu() : openMenu();
+        });
+
+        closeNavBtn.addEventListener('click', closeMenu);
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Background animation
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        const palette = ['#22d3ee', '#a855f7', '#f97316', '#22c55e', '#38bdf8'];
+        const bgRings = Array.from({ length: 18 }).map(() => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            radius: 10 + Math.random() * 40,
+            speed: 0.3 + Math.random() * 0.6,
+            color: palette[Math.floor(Math.random() * palette.length)]
+        }));
+
+        function resizeBackground() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+
+        function drawBackground() {
+            bgCtx.fillStyle = 'rgba(11, 18, 32, 0.18)';
+            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgRings.forEach(ring => {
+                bgCtx.beginPath();
+                bgCtx.strokeStyle = ring.color + '66';
+                bgCtx.lineWidth = 2;
+                bgCtx.arc(ring.x, ring.y, ring.radius, 0, Math.PI * 2);
+                bgCtx.stroke();
+                ring.y -= ring.speed;
+                if (ring.y + ring.radius < 0) {
+                    ring.y = bgCanvas.height + Math.random() * 80;
+                    ring.x = Math.random() * bgCanvas.width;
+                }
+            });
+            requestAnimationFrame(drawBackground);
+        }
+
+        // Initialize
+        resizeBackground();
+        drawBackground();
+        renderGallery();
+        window.addEventListener('resize', resizeBackground);
+    </script>
+</body>
+</html>

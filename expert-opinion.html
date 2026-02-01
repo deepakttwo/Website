@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Opinions - Mental Health</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Expert Opinion Page Styles */
+        .expert-page {
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .expert-header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #e2e8f0;
+        }
+
+        .expert-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #2dd4bf, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .expert-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2dd4bf;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #5eead4;
+        }
+
+        .back-link::before {
+            content: '←';
+            font-size: 1.2rem;
+        }
+
+        .experts-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        /* Expert Card */
+        .expert-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .expert-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .expert-card:nth-child(even) .callout-bubble::before {
+            left: auto;
+            right: -20px;
+            border-left: 24px solid rgba(45, 55, 72, 0.95);
+            border-right: none;
+        }
+
+        /* Expert Photo */
+        .expert-photo-container {
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .expert-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #2dd4bf;
+            box-shadow: 0 0 30px rgba(45, 212, 191, 0.3),
+                        0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .expert-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(45, 212, 191, 0.5),
+                        0 15px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .expert-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Callout Bubble */
+        .callout-bubble {
+            flex: 1;
+            background: rgba(45, 55, 72, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px 36px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .callout-bubble::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-right: 24px solid rgba(45, 55, 72, 0.95);
+        }
+
+        .expert-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2dd4bf;
+            margin-bottom: 4px;
+        }
+
+        .expert-title {
+            font-size: 0.95rem;
+            color: #a855f7;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .expert-quote {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            font-style: italic;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .expert-quote::before {
+            content: '"';
+            position: absolute;
+            left: -5px;
+            top: -10px;
+            font-size: 4rem;
+            color: rgba(45, 212, 191, 0.3);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .expert-credentials {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .credential-tag {
+            background: rgba(45, 212, 191, 0.15);
+            color: #2dd4bf;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .expert-card,
+            .expert-card:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .callout-bubble::before,
+            .expert-card:nth-child(even) .callout-bubble::before {
+                left: 50%;
+                right: auto;
+                top: -20px;
+                transform: translateX(-50%) rotate(90deg);
+                border-right: 24px solid rgba(45, 55, 72, 0.95);
+                border-left: none;
+            }
+
+            .expert-quote {
+                padding-left: 0;
+                text-align: left;
+            }
+
+            .expert-credentials {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .expert-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .callout-bubble {
+                padding: 24px 20px;
+            }
+
+            .expert-name {
+                font-size: 1.2rem;
+            }
+
+            .expert-quote {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Hamburger Menu Icon -->
+    <button id="hamburgerBtn" class="hamburger-menu" aria-label="Toggle navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Side Navigation Panel -->
+    <nav id="sideNav" class="side-nav">
+        <div class="nav-header">
+            <h2>Menu</h2>
+            <button id="closeNavBtn" class="nav-close" aria-label="Close navigation menu">&times;</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="std-goals.html">STD Goals</a></li>
+            <li><a href="expert-opinion.html" class="active">Expert Opinion</a></li>
+            <li><a href="support-resources.html">Support Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div id="navOverlay" class="nav-overlay"></div>
+
+    <main class="expert-page">
+        <header class="expert-header">
+            <h1>Expert Opinions</h1>
+            <p>Insights from leading mental health professionals on the importance of psychological well-being</p>
+        </header>
+
+        <div class="experts-container">
+            <!-- Expert 1 -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" 
+                         alt="Dr. Sarah Mitchell" 
+                         class="expert-photo">
+                    <span class="expert-badge">Lead Psychiatrist</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Dr. Sarah Mitchell</h3>
+                    <p class="expert-title">Clinical Psychiatrist & Mental Health Advocate</p>
+                    <p class="expert-quote">
+                        Mental health is not a destination, but a process. It's about how you drive, not where you're going. 
+                        Taking care of your mental health is just as important as taking care of your physical health. 
+                        Remember, it's okay to ask for help – seeking support is a sign of strength, not weakness. 
+                        Every step you take towards understanding yourself better is a step towards a healthier, happier life.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">MD Psychiatry</span>
+                        <span class="credential-tag">15+ Years Experience</span>
+                        <span class="credential-tag">WHO Consultant</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 2 -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" 
+                         alt="Dr. James Chen" 
+                         class="expert-photo">
+                    <span class="expert-badge">Psychologist</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Dr. James Chen</h3>
+                    <p class="expert-title">Clinical Psychologist & Researcher</p>
+                    <p class="expert-quote">
+                        In my 20 years of practice, I've learned that mental wellness isn't about eliminating stress or negative emotions – 
+                        it's about developing resilience and healthy coping mechanisms. The workplace can be a significant source of stress, 
+                        but with the right tools and support systems, we can create environments that nurture both productivity and mental well-being. 
+                        Your mental health matters, and investing in it pays dividends in every aspect of your life.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">PhD Psychology</span>
+                        <span class="credential-tag">20+ Years Experience</span>
+                        <span class="credential-tag">Published Author</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 3 -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop&crop=face" 
+                         alt="Dr. Priya Sharma" 
+                         class="expert-photo">
+                    <span class="expert-badge">Therapist</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Dr. Priya Sharma</h3>
+                    <p class="expert-title">Mental Health Therapist & Wellness Coach</p>
+                    <p class="expert-quote">
+                        The mind and body are deeply connected. When we neglect our mental health, it manifests in physical symptoms, 
+                        decreased productivity, and strained relationships. I always tell my clients: self-care is not selfish – 
+                        it's essential. Whether it's meditation, exercise, journaling, or simply taking a break, 
+                        find what works for you and make it a priority. Your future self will thank you for the care you give yourself today.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">Licensed Therapist</span>
+                        <span class="credential-tag">Mindfulness Expert</span>
+                        <span class="credential-tag">Corporate Wellness</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 4 - Indian Psychiatrist -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face" 
+                         alt="Dr. Vikram Patel" 
+                         class="expert-photo">
+                    <span class="expert-badge">Global Mental Health Pioneer</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Dr. Vikram Patel</h3>
+                    <p class="expert-title">Psychiatrist & Global Mental Health Researcher</p>
+                    <p class="expert-quote">
+                        Mental health is a universal human right. In India and across the developing world, we face a massive treatment gap – 
+                        but this also presents an opportunity to innovate. Community-based care, task-sharing with trained lay counselors, 
+                        and integrating mental health into primary care can transform lives. Remember, there is no health without mental health. 
+                        Every person deserves access to compassionate, evidence-based mental health support.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">NIMHANS Fellow</span>
+                        <span class="credential-tag">Harvard Professor</span>
+                        <span class="credential-tag">WHO Advisor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 5 - Indian Psychologist -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face" 
+                         alt="Dr. Shyamala Vatsa" 
+                         class="expert-photo">
+                    <span class="expert-badge">Clinical Psychologist</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Dr. Shyamala Vatsa</h3>
+                    <p class="expert-title">Senior Clinical Psychologist & Author</p>
+                    <p class="expert-quote">
+                        In Indian society, we often struggle to talk about mental health due to stigma and cultural barriers. 
+                        But I've seen tremendous progress over the years. The key is to normalize these conversations – 
+                        in families, workplaces, and communities. Mental wellness is not a luxury; it's foundational to leading a fulfilling life. 
+                        Embrace vulnerability, seek help when needed, and remember that healing is always possible.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">PhD Clinical Psychology</span>
+                        <span class="credential-tag">30+ Years Experience</span>
+                        <span class="credential-tag">Bestselling Author</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 6 - Celebrity: Deepika Padukone -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://stat4.bollywoodhungama.in/wp-content/uploads/2016/03/Deepika-Padukone.jpg" 
+                         alt="Deepika Padukone" 
+                         class="expert-photo">
+                    <span class="expert-badge">Bollywood Actress</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Deepika Padukone</h3>
+                    <p class="expert-title">Actress & Founder, The Live Love Laugh Foundation</p>
+                    <p class="expert-quote">
+                        I have experienced depression, and I know how isolating it can feel. That's why I founded The Live Love Laugh Foundation – 
+                        to reduce the stigma around mental illness and provide support to those who need it. 
+                        If you're going through something, please know you're not alone. It's okay to not be okay. 
+                        Reach out, talk to someone, and take that first step. Recovery is possible, and hope is always there.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">Bollywood Actress</span>
+                        <span class="credential-tag">TLLLF Founder</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 7 - Celebrity: Dwayne "The Rock" Johnson -->
+            <div class="expert-card">
+                <div class="expert-photo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Dwayne_Johnson_2014_%28cropped%29.jpg/440px-Dwayne_Johnson_2014_%28cropped%29.jpg" 
+                         alt="Dwayne Johnson" 
+                         class="expert-photo">
+                    <span class="expert-badge">Hollywood Actor</span>
+                </div>
+                <div class="callout-bubble">
+                    <h3 class="expert-name">Dwayne "The Rock" Johnson</h3>
+                    <p class="expert-title">Actor, Producer & Mental Health Advocate</p>
+                    <p class="expert-quote">
+                        I've battled depression multiple times in my life. There were times I didn't want to get out of bed. 
+                        What helped me was talking about it – to friends, family, and professionals. Men especially need to know 
+                        that it's okay to be vulnerable. Asking for help doesn't make you weak; it makes you human. 
+                        Keep pushing forward, hold on to those you trust, and never give up on yourself. You're stronger than you think.
+                    </p>
+                    <div class="expert-credentials">
+                        <span class="credential-tag">Hollywood Actor</span>
+                        <span class="credential-tag">Former WWE Wrestler</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sideNav = document.getElementById('sideNav');
+        const closeNavBtn = document.getElementById('closeNavBtn');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openMenu() {
+            hamburgerBtn.classList.add('active');
+            sideNav.classList.add('open');
+            navOverlay.classList.add('active');
+        }
+
+        function closeMenu() {
+            hamburgerBtn.classList.remove('active');
+            sideNav.classList.remove('open');
+            navOverlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', () => {
+            sideNav.classList.contains('open') ? closeMenu() : openMenu();
+        });
+
+        closeNavBtn.addEventListener('click', closeMenu);
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Background animation
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        const palette = ['#22d3ee', '#a855f7', '#f97316', '#22c55e', '#38bdf8'];
+        const bgRings = Array.from({ length: 18 }).map(() => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            radius: 10 + Math.random() * 40,
+            speed: 0.3 + Math.random() * 0.6,
+            color: palette[Math.floor(Math.random() * palette.length)]
+        }));
+
+        function resizeBackground() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+
+        function drawBackground() {
+            bgCtx.fillStyle = 'rgba(11, 18, 32, 0.18)';
+            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgRings.forEach(ring => {
+                bgCtx.beginPath();
+                bgCtx.strokeStyle = ring.color + '66';
+                bgCtx.lineWidth = 2;
+                bgCtx.arc(ring.x, ring.y, ring.radius, 0, Math.PI * 2);
+                bgCtx.stroke();
+                ring.y -= ring.speed;
+                if (ring.y + ring.radius < 0) {
+                    ring.y = bgCanvas.height + Math.random() * 80;
+                    ring.x = Math.random() * bgCanvas.width;
+                }
+            });
+            requestAnimationFrame(drawBackground);
+        }
+
+        // Scroll animations for expert cards
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.expert-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+            observer.observe(card);
+        });
+
+        // Initialize
+        resizeBackground();
+        drawBackground();
+        window.addEventListener('resize', resizeBackground);
+    </script>
+</body>
+</html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Services - Mental Health</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Support Resources Page Styles */
+        .support-page {
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .support-header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #e2e8f0;
+        }
+
+        .support-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #2dd4bf, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .support-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-radius: 16px;
+            padding: 24px 32px;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3);
+        }
+
+        .emergency-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .emergency-content h2 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .emergency-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 12px;
+        }
+
+        .emergency-number {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .emergency-number:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            color: #e2e8f0;
+            font-size: 1.8rem;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #2dd4bf, #a855f7);
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        /* Contact Cards Grid */
+        .cards-container {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 28px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2dd4bf, #06b6d4);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .card-icon.hospital {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+        }
+
+        .card-icon.helpline {
+            background: linear-gradient(135deg, #22c55e, #10b981);
+        }
+
+        .card-icon.ngo {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+
+        .card-title-group {
+            flex: 1;
+        }
+
+        .card-title {
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-type {
+            color: #2dd4bf;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .card-body {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card-info {
+            margin-bottom: 16px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .info-icon {
+            color: #2dd4bf;
+            font-size: 1rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            color: #cbd5e1;
+        }
+
+        .info-text a {
+            color: #2dd4bf;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-text a:hover {
+            color: #5eead4;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tag {
+            background: rgba(45, 212, 191, 0.15);
+            color: #2dd4bf;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tag.purple {
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+        }
+
+        /* Helpline Section */
+        .helplines-section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .helpline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .helpline-card {
+            background: rgba(45, 55, 72, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .helpline-card:hover {
+            transform: scale(1.03);
+        }
+
+        .helpline-name {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .helpline-number {
+            color: #2dd4bf;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .helpline-timing {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .emergency-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .helplines-section {
+                padding: 24px 16px;
+            }
+
+            .support-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Hamburger Menu Icon -->
+    <button id="hamburgerBtn" class="hamburger-menu" aria-label="Toggle navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Side Navigation Panel -->
+    <nav id="sideNav" class="side-nav">
+        <div class="nav-header">
+            <h2>Menu</h2>
+            <button id="closeNavBtn" class="nav-close" aria-label="Close navigation menu">&times;</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="std-goals.html">STD Goals</a></li>
+            <li><a href="expert-opinion.html">Expert Opinion</a></li>
+            <li><a href="support-resources.html" class="active">Support Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div id="navOverlay" class="nav-overlay"></div>
+
+    <main class="support-page">
+        <header class="support-header">
+            <h1>Support Services</h1>
+            <p>Find help and support for mental health in Bangalore and across India</p>
+        </header>
+
+        <!-- National Helplines -->
+        <div class="helplines-section">
+            <h2 class="section-title">24/7 Mental Health Helplines</h2>
+            <p class="section-subtitle">Free and confidential support available round the clock</p>
+            
+            <div class="helpline-grid">
+                <div class="helpline-card">
+                    <div class="helpline-name">iCall (TISS)</div>
+                    <div class="helpline-number">9152987821</div>
+                    <div class="helpline-timing">Mon-Sat: 8 AM - 10 PM</div>
+                </div>
+                <div class="helpline-card">
+                    <div class="helpline-name">Vandrevala Foundation</div>
+                    <div class="helpline-number">1860-2662-345</div>
+                    <div class="helpline-timing">24/7 Available</div>
+                </div>
+                <div class="helpline-card">
+                    <div class="helpline-name">NIMHANS Helpline</div>
+                    <div class="helpline-number">080-46110007</div>
+                    <div class="helpline-timing">24/7 Available</div>
+                </div>
+                <div class="helpline-card">
+                    <div class="helpline-name">Snehi India</div>
+                    <div class="helpline-number">044-24640050</div>
+                    <div class="helpline-timing">24/7 Available</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hospitals in Bangalore -->
+        <div class="cards-container">
+            <h2 class="section-title">Mental Health Hospitals in Bangalore</h2>
+            <p class="section-subtitle">Leading psychiatric hospitals and mental health care centers</p>
+
+            <div class="cards-grid">
+                <!-- NIMHANS -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon hospital">🏥</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">NIMHANS</h3>
+                            <span class="card-type">Government Hospital</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">Hosur Road, Bangalore - 560029</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-26995000">080-2699 5000</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://nimhans.ac.in" target="_blank">nimhans.ac.in</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Psychiatry</span>
+                            <span class="tag">Neurology</span>
+                            <span class="tag">De-addiction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cadabams -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon hospital">🏥</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Cadabams Hospitals</h3>
+                            <span class="card-type">Private Hospital</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">19th Main, HSR Layout, Bangalore - 560102</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:9741476476">9741 476 476</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://www.cadabams.org" target="_blank">cadabams.org</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Rehabilitation</span>
+                            <span class="tag">Counseling</span>
+                            <span class="tag purple">Premium Care</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manas Foundation -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon hospital">🏥</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Manas Foundation</h3>
+                            <span class="card-type">Rehabilitation Center</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">Koramangala, Bangalore - 560034</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-25530650">080-2553 0650</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://mfrcindia.org" target="_blank">mfrcindia.org</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Rehabilitation</span>
+                            <span class="tag">Community Care</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Athma Shakti Vidyalaya -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon hospital">🏥</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Athma Shakti Vidyalaya</h3>
+                            <span class="card-type">Treatment Center</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">J.P. Nagar, Bangalore - 560078</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-26492650">080-2649 2650</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://asvrehab.com" target="_blank">asvrehab.com</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">De-addiction</span>
+                            <span class="tag">Counseling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manipal Hospital -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon hospital">🏥</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Manipal Hospital - Psychiatry</h3>
+                            <span class="card-type">Multi-Specialty Hospital</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">HAL Airport Road, Bangalore - 560017</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-25024444">080-2502 4444</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://www.manipalhospitals.com" target="_blank">manipalhospitals.com</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Psychiatry</span>
+                            <span class="tag purple">Premium Care</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fortis Hospital -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon hospital">🏥</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Fortis Hospital - Mental Health</h3>
+                            <span class="card-type">Multi-Specialty Hospital</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">Bannerghatta Road, Bangalore - 560076</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-66214444">080-6621 4444</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://www.fortishealthcare.com" target="_blank">fortishealthcare.com</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Psychiatry</span>
+                            <span class="tag">Counseling</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Counseling Centers -->
+        <div class="cards-container">
+            <h2 class="section-title">Counseling & Therapy Centers</h2>
+            <p class="section-subtitle">Professional counseling and therapy services</p>
+
+            <div class="cards-grid">
+                <!-- Parivarthan -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon ngo">💚</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Parivarthan Counseling</h3>
+                            <span class="card-type">Counseling Center</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">Indiranagar, Bangalore</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-25273462">080-2527 3462</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://www.parivarthan.org" target="_blank">parivarthan.org</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Counseling</span>
+                            <span class="tag">Affordable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Alternative Story -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon ngo">💚</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">The Alternative Story</h3>
+                            <span class="card-type">Mental Health Collective</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">Jayanagar, Bangalore</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:080-26563206">080-2656 3206</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://alternativestory.in" target="_blank">alternativestory.in</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Therapy</span>
+                            <span class="tag">Support Groups</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mind Matterz -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon helpline">🧠</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Mind Matterz</h3>
+                            <span class="card-type">Psychology Clinic</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">📍</span>
+                                <span class="info-text">Whitefield, Bangalore</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">📞</span>
+                                <span class="info-text"><a href="tel:9880462258">9880 462 258</a></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://mindmatterz.com" target="_blank">mindmatterz.com</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">CBT</span>
+                            <span class="tag">Child Psychology</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Online Resources -->
+        <div class="cards-container">
+            <h2 class="section-title">Online Mental Health Resources</h2>
+            <p class="section-subtitle">Apps and platforms for mental wellness support</p>
+
+            <div class="cards-grid">
+                <!-- Wysa -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon helpline">📱</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">Wysa</h3>
+                            <span class="card-type">AI Mental Health App</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">💡</span>
+                                <span class="info-text">AI-powered emotional wellness chatbot with therapist support</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://www.wysa.io" target="_blank">wysa.io</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Free</span>
+                            <span class="tag">24/7</span>
+                            <span class="tag purple">India-based</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YourDOST -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon helpline">📱</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">YourDOST</h3>
+                            <span class="card-type">Online Counseling Platform</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">💡</span>
+                                <span class="info-text">Connect with counselors via chat, call, or video</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://yourdost.com" target="_blank">yourdost.com</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Online Therapy</span>
+                            <span class="tag purple">India-based</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MindPeers -->
+                <div class="contact-card">
+                    <div class="card-header">
+                        <div class="card-icon helpline">📱</div>
+                        <div class="card-title-group">
+                            <h3 class="card-title">MindPeers</h3>
+                            <span class="card-type">Mental Health Platform</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="info-row">
+                                <span class="info-icon">💡</span>
+                                <span class="info-text">Self-care tools, therapy, and psychiatry services</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-icon">🌐</span>
+                                <span class="info-text"><a href="https://mindpeers.co" target="_blank">mindpeers.co</a></span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">Self-care</span>
+                            <span class="tag">Therapy</span>
+                            <span class="tag purple">India-based</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const sideNav = document.getElementById('sideNav');
+        const closeNavBtn = document.getElementById('closeNavBtn');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openMenu() {
+            hamburgerBtn.classList.add('active');
+            sideNav.classList.add('open');
+            navOverlay.classList.add('active');
+        }
+
+        function closeMenu() {
+            hamburgerBtn.classList.remove('active');
+            sideNav.classList.remove('open');
+            navOverlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', () => {
+            sideNav.classList.contains('open') ? closeMenu() : openMenu();
+        });
+
+        closeNavBtn.addEventListener('click', closeMenu);
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Background animation
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        const palette = ['#22d3ee', '#a855f7', '#f97316', '#22c55e', '#38bdf8'];
+        const bgRings = Array.from({ length: 18 }).map(() => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            radius: 10 + Math.random() * 40,
+            speed: 0.3 + Math.random() * 0.6,
+            color: palette[Math.floor(Math.random() * palette.length)]
+        }));
+
+        function resizeBackground() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+
+        function drawBackground() {
+            bgCtx.fillStyle = 'rgba(11, 18, 32, 0.18)';
+            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgRings.forEach(ring => {
+                bgCtx.beginPath();
+                bgCtx.strokeStyle = ring.color + '66';
+                bgCtx.lineWidth = 2;
+                bgCtx.arc(ring.x, ring.y, ring.radius, 0, Math.PI * 2);
+                bgCtx.stroke();
+                ring.y -= ring.speed;
+                if (ring.y + ring.radius < 0) {
+                    ring.y = bgCanvas.height + Math.random() * 80;
+                    ring.x = Math.random() * bgCanvas.width;
+                }
+            });
+            requestAnimationFrame(drawBackground);
+        }
+
+        // Scroll animations for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -30px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.contact-card, .helpline-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.5s ease ${(index % 6) * 0.1}s, transform 0.5s ease ${(index % 6) * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Initialize
+        resizeBackground();
+        drawBackground();
+        window.addEventListener('resize', resizeBackground);
+    </script>
+</body>
+</html>
