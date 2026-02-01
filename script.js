@@ -1,11 +1,105 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Hamburger Menu Functionality
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideNav = document.getElementById('sideNav');
+    const closeNavBtn = document.getElementById('closeNavBtn');
+    const navOverlay = document.getElementById('navOverlay');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+
+    function openMenu() {
+        hamburgerBtn.classList.add('active');
+        sideNav.classList.add('open');
+        navOverlay.classList.add('active');
+    }
+
+    function closeMenu() {
+        hamburgerBtn.classList.remove('active');
+        sideNav.classList.remove('open');
+        navOverlay.classList.remove('active');
+    }
+
+    // Event listeners for menu toggle
+    hamburgerBtn.addEventListener('click', () => {
+        if (sideNav.classList.contains('open')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+
+    closeNavBtn.addEventListener('click', closeMenu);
+    navOverlay.addEventListener('click', closeMenu);
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMenu();
+        });
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sideNav.classList.contains('open')) {
+            closeMenu();
+        }
+    });
+
+    // Modal Management
+    const welcomeModal = document.getElementById('welcomeModal');
+    const modalClose = document.querySelector('.modal-close');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Close modal function
+    function closeModal() {
+        if (welcomeModal) {
+            welcomeModal.classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }
+    }
+
+    // Open modal on page load (remove 'hidden' class if added)
+    function openModal() {
+        if (welcomeModal) {
+            welcomeModal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+        }
+    }
+
+    // Event listeners for modal close
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+
+    // Close modal when clicking outside the modal content
+    if (welcomeModal) {
+        welcomeModal.addEventListener('click', function(event) {
+            if (event.target === welcomeModal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && welcomeModal && !welcomeModal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    // Open modal on page load
+    openModal();
+
     const ageChart = document.getElementById('ageChart');
     const genderChart = document.getElementById('genderChart');
     const studyChart = document.getElementById('studyChart');
     const stressChart = document.getElementById('stressChart');
 
     const bgCanvas = document.getElementById('bg-canvas');
-    const bgCtx = bgCanvas.getContext('2d');
+    const bgCtx = bgCanvas ? bgCanvas.getContext('2d') : null;
 
     const chartData = {
         age: [
@@ -167,6 +261,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function resizeBackground() {
+        if (!bgCanvas) {
+            return;
+        }
         bgCanvas.width = window.innerWidth;
         bgCanvas.height = window.innerHeight;
     }
@@ -181,6 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }));
 
     function drawBackground() {
+        if (!bgCtx || !bgCanvas) {
+            return;
+        }
         bgCtx.fillStyle = 'rgba(11, 18, 32, 0.2)';
         bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
 
@@ -204,6 +304,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function initCharts() {
+        if (!ageChart || !genderChart || !studyChart || !stressChart) {
+            return;
+        }
         drawBarChart(ageChart, chartData.age);
         drawDonutChart(genderChart, chartData.gender);
         drawBarChart(studyChart, chartData.study);

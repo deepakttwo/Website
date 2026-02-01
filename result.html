@@ -12,12 +12,129 @@
     <main class="result-shell">
         <section class="odometer-card tech-glow">
             <h1>Mental Health Meter</h1>
-            <p class="muted">Your pointer will move slowly to your score zone.</p>
-            <div class="odometer-wrap">
-                <canvas id="odometer" class="odometer-dial" width="320" height="180"></canvas>
-                <div id="dialPointer" class="dial-pointer"></div>
-                <div class="dial-center"></div>
+            <p class="muted">Your mental health score and status</p>
+            
+            <!-- 
+                ================================================
+                AUTOMOTIVE SPEEDOMETER-STYLE GAUGE
+                ================================================
+                Design inspired by BMW/Audi instrument clusters.
+                
+                GEOMETRY:
+                - ViewBox: 400 x 400 (square for circular gauge)
+                - Center: (200, 200)
+                - Main dial radius: 180
+                - Arc spans 240° (from 150° to -60° / 300°)
+                  This gives the classic speedometer look with
+                  the needle starting at bottom-left and ending
+                  at bottom-right
+            -->
+            <div class="gauge-container" id="gaugeContainer">
+                <svg id="gaugeSvg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <!-- Outer bezel gradient - metallic look -->
+                        <linearGradient id="bezelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4a5568"/>
+                            <stop offset="30%" stop-color="#2d3748"/>
+                            <stop offset="70%" stop-color="#1a202c"/>
+                            <stop offset="100%" stop-color="#2d3748"/>
+                        </linearGradient>
+                        
+                        <!-- Inner dial gradient - dark carbon fiber look -->
+                        <radialGradient id="dialGradient" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#1a1a2e"/>
+                            <stop offset="70%" stop-color="#0f0f1a"/>
+                            <stop offset="100%" stop-color="#0a0a12"/>
+                        </radialGradient>
+                        
+                        <!-- Needle gradient - metallic -->
+                        <linearGradient id="needleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#dc2626"/>
+                            <stop offset="50%" stop-color="#ef4444"/>
+                            <stop offset="100%" stop-color="#dc2626"/>
+                        </linearGradient>
+                        
+                        <!-- Subtle glow filter -->
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="2" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        
+                        <!-- Drop shadow for needle -->
+                        <filter id="needleShadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+                        </filter>
+                    </defs>
+                    
+                    <!-- OUTER BEZEL - thick metallic ring -->
+                    <circle cx="200" cy="200" r="195" fill="none" stroke="url(#bezelGradient)" stroke-width="8"/>
+                    <circle cx="200" cy="200" r="190" fill="none" stroke="#1a202c" stroke-width="2"/>
+                    
+                    <!-- DIAL FACE - dark circular background -->
+                    <circle cx="200" cy="200" r="185" fill="url(#dialGradient)"/>
+                    
+                    <!-- INNER DECORATIVE RING -->
+                    <circle cx="200" cy="200" r="175" fill="none" stroke="#2d3748" stroke-width="1" opacity="0.5"/>
+                    
+                    <!-- COLOR ZONE ARC - Single continuous arc with colored segments -->
+                    <!-- Background arc track -->
+                    <path id="arcTrack" fill="none" stroke="#1e293b" stroke-width="22" stroke-linecap="butt"/>
+                    
+                    <!-- Red zone: 0-33 (LOW = BAD) -->
+                    <path id="arcRed" fill="none" stroke="#ef4444" stroke-width="18" stroke-linecap="butt"/>
+                    
+                    <!-- Yellow zone: 33-66 (MEDIUM = OKAY) -->
+                    <path id="arcYellow" fill="none" stroke="#eab308" stroke-width="18" stroke-linecap="butt"/>
+                    
+                    <!-- Green zone: 66-100 (HIGH = GOOD) -->
+                    <path id="arcGreen" fill="none" stroke="#22c55e" stroke-width="18" stroke-linecap="butt"/>
+                    
+                    <!-- TICK MARKS - positioned by JavaScript -->
+                    <g id="tickMarks"></g>
+                    
+                    <!-- TICK LABELS - positioned by JavaScript -->
+                    <g id="tickLabels"></g>
+                    
+                    <!-- CENTER HUB - mechanical pivot point -->
+                    <circle cx="200" cy="200" r="28" fill="#1a1a2e" stroke="#3d4555" stroke-width="3"/>
+                    <circle cx="200" cy="200" r="20" fill="#2d3748"/>
+                    <circle cx="200" cy="200" r="12" fill="#4a5568"/>
+                    <circle cx="200" cy="200" r="6" fill="#718096"/>
+                    <!-- Highlight reflection on hub -->
+                    <ellipse cx="196" cy="196" rx="4" ry="3" fill="#a0aec0" opacity="0.4"/>
+                    
+                    <!-- NEEDLE - mechanical pointer -->
+                    <g id="needleGroup" filter="url(#needleShadow)">
+                        <path id="needlePath" fill="url(#needleGradient)" stroke="#991b1b" stroke-width="0.5"/>
+                    </g>
+                    
+                    <!-- Center cap over needle base -->
+                    <circle cx="200" cy="200" r="10" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+                    <circle cx="200" cy="200" r="5" fill="#4b5563"/>
+                    
+                </svg>
             </div>
+            
+            <div class="result-badge" id="scoreBadge">Score: 0/100</div>
+            <p class="result-message" id="resultMessage"></p>
+            <button class="primary-btn" id="homeBtn">Go to Home</button>
+        </section>
+    </main>
+</body>
+</html>
+                            class="gauge-needle"
+                        />
+                        <!-- Center cap (outer) -->
+                        <circle cx="150" cy="150" r="16" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                        <!-- Center cap (inner) -->
+                        <circle cx="150" cy="150" r="8" fill="#64748b"/>
+                    </g>
+                </svg>
+            </div>
+            
             <div class="result-badge" id="scoreBadge">Score: 0/100</div>
             <p class="result-message" id="resultMessage"></p>
             <button class="primary-btn" id="homeBtn">Go to Home</button>

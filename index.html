@@ -9,6 +9,71 @@
 </head>
 <body>
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    
+    <!-- Hamburger Menu Icon -->
+    <button id="hamburgerBtn" class="hamburger-menu" aria-label="Toggle navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Side Navigation Panel -->
+    <nav id="sideNav" class="side-nav">
+        <div class="nav-header">
+            <h2>Menu</h2>
+            <button id="closeNavBtn" class="nav-close" aria-label="Close navigation menu">&times;</button>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="stg-goals.html">STG Goals</a></li>
+            <li><a href="index.html#expert-opinion">Expert Opinion</a></li>
+            <li><a href="index.html#support-resources">Support &amp; Resources</a></li>
+            <li><a href="index.html#gallery">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div id="navOverlay" class="nav-overlay"></div>
+    
+    <!-- Welcome Popup Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close popup">&times;</button>
+            <div class="modal-header">
+                <h1>Mental Health for Students</h1>
+            </div>
+            <div class="modal-body">
+                <section class="goal-section">
+                    <h2>Goal: Promoting Mental Health and Well-Being</h2>
+                    
+                    <p class="goal-intro">Our mission is to ensure students are emotionally healthy, resilient, and capable of managing academic, social, and personal challenges. We're committed to building a <strong>supportive, inclusive, and stigma-free environment</strong> where students feel safe to express their emotions and seek help without fear.</p>
+                    
+                    <div class="goal-highlights">
+                        <div class="highlight-item">
+                            <h3>Mental Health Awareness</h3>
+                            <p>We focus on understanding and addressing stress, anxiety, depression, and burnout. Through early identification and timely support, we help students recognize warning signs and access the help they need.</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <h3>Essential Life Skills Development</h3>
+                            <p>We develop critical skills including emotional regulation, self-confidence, mindfulness, and stress management. These skills directly contribute to academic success and personal growth, enabling students to thrive in all areas of life.</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <h3>Resource Access & Support Systems</h3>
+                            <p>Our goal is to improve access to mental health resources, guidance, and peer support systems. We ensure no student feels isolated or unheard by providing comprehensive support networks and professional assistance.</p>
+                        </div>
+                    </div>
+                    
+                    <p class="goal-conclusion">By promoting mental health and well-being, we create a compassionate educational community that fosters healthier individuals, better learning outcomes, and reduced inequalities. Together, we build a productive environment where every student can succeed.</p>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button class="primary-btn modal-action-btn" id="closeModalBtn">Get Started</button>
+            </div>
+        </div>
+    </div>
+
     <header id="home">
         <div class="hero">
             <div class="hero-text">

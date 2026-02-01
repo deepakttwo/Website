@@ -166,6 +166,35 @@ document.addEventListener('DOMContentLoaded', () => {
         bgCanvas.height = window.innerHeight;
     }
 
+    function goNext() {
+        const question = questions[currentIndex];
+        if (!answers[question.id] || (Array.isArray(answers[question.id]) && answers[question.id].length === 0)) {
+            optionGrid.classList.add('fade-exit');
+            setTimeout(() => optionGrid.classList.remove('fade-exit'), 350);
+            return;
+        }
+
+        if (currentIndex < questions.length - 1) {
+            currentIndex += 1;
+            renderQuestion();
+        } else {
+            const score = computeScore();
+            localStorage.setItem('mentalHealthScore', JSON.stringify({
+                score,
+                answers,
+                timestamp: Date.now()
+            }));
+            window.location.href = 'result.html';
+        }
+    }
+
+    function goPrev() {
+        if (currentIndex > 0) {
+            currentIndex -= 1;
+            renderQuestion();
+        }
+    }
+
     function drawBackground() {
         bgCtx.fillStyle = 'rgba(11, 18, 32, 0.18)';
         bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
@@ -209,6 +238,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         answers[question.id] = [...currentSelections, option];
                         button.classList.add('selected');
                     }
+                    if (currentIndex < questions.length - 1 && answers[question.id].length > 0) {
+                        setTimeout(goNext, 150);
+                    }
                 });
             } else {
                 if (selected === option) {
@@ -218,6 +250,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     answers[question.id] = option;
                     [...optionGrid.children].forEach(child => child.classList.remove('selected'));
                     button.classList.add('selected');
+                    console.log('Single option clicked:', option, 'CurrentIndex:', currentIndex, 'Total questions:', questions.length);
+                    if (currentIndex < questions.length - 1) {
+                        console.log('Auto-advancing to next question');
+                        setTimeout(goNext, 150);
+                    }
                 });
             }
 
@@ -226,7 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         prevBtn.style.opacity = currentIndex === 0 ? '0.35' : '1';
         prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
-        nextBtn.textContent = currentIndex === questions.length - 1 ? 'Finish' : 'Next';
+        const isLastQuestion = currentIndex === questions.length - 1;
+        nextBtn.textContent = isLastQuestion ? 'Submit' : 'Next';
+        nextBtn.style.display = isLastQuestion ? 'inline-flex' : 'none';
         optionGrid.classList.add('fade-enter');
         setTimeout(() => optionGrid.classList.remove('fade-enter'), 450);
     }
@@ -258,35 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         score += Math.max(0, Math.min(copingScore, 16));
 
         return score;
-    }
-
-    function goNext() {
-        const question = questions[currentIndex];
-        if (!answers[question.id] || (Array.isArray(answers[question.id]) && answers[question.id].length === 0)) {
-            optionGrid.classList.add('fade-exit');
-            setTimeout(() => optionGrid.classList.remove('fade-exit'), 350);
-            return;
-        }
-
-        if (currentIndex < questions.length - 1) {
-            currentIndex += 1;
-            renderQuestion();
-        } else {
-            const score = computeScore();
-            localStorage.setItem('mentalHealthScore', JSON.stringify({
-                score,
-                answers,
-                timestamp: Date.now()
-            }));
-            window.location.href = 'result.html';
-        }
-    }
-
-    function goPrev() {
-        if (currentIndex > 0) {
-            currentIndex -= 1;
-            renderQuestion();
-        }
     }
 
     nextBtn.addEventListener('click', goNext);
