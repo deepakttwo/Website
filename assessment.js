@@ -146,19 +146,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     const scoringMap = {
-        'academic-stress': { 'Never': 0, 'Rarely': 5, 'Sometimes': 10, 'Often': 15, 'Always': 20 },
-        'emotional-state': { 'Mostly positive': 0, 'Generally neutral': 6, 'Occasionally low': 12, 'Frequently low': 18 },
-        'anxiety': { 'No': 0, 'Sometimes': 8, 'Yes': 16 },
-        'sleep-pattern': { 'No change – sleeping normally': 0, 'Sleeping less than usual': 10, 'Sleeping more than usual': 6, 'Irregular sleep cycle': 14 },
-        'eating-habits': { 'No change': 0, 'Eating less': 8, 'Eating more': 6, 'Skipping meals': 12 },
-        'concentration': { 'Never': 0, 'Sometimes': 8, 'Often': 14 },
-        'mental-exhaustion': { 'No': 0, 'Sometimes': 8, 'Yes': 14 },
-        'support': { 'Friends': 4, 'Family': 3, 'Teachers': 2, 'Counsellor or mentor': 2, 'No one': 12 },
-        'sharing': { 'Yes': 0, 'Sometimes': 6, 'No': 12 },
-        'support-services': { 'Yes': 0, 'No': 8 },
-        'consider-using': { 'Yes': 0, 'Maybe': 4, 'No': 10 },
-        'preferred-support': { 'One-to-one counselling': 0, 'Peer support groups': 2, 'Online or anonymous support': 2, 'Workshops and awareness sessions': 4 },
-        'education': { 'Strongly agree': 0, 'Agree': 2, 'Neutral': 4, 'Disagree': 8, 'Strongly disagree': 10 }
+        'academic-stress': { 'Never': 20, 'Rarely': 15, 'Sometimes': 10, 'Often': 5, 'Always': 0 },
+        'emotional-state': { 'Mostly positive': 18, 'Generally neutral': 12, 'Occasionally low': 6, 'Frequently low': 0 },
+        'anxiety': { 'No': 16, 'Sometimes': 8, 'Yes': 0 },
+        'sleep-pattern': { 'No change – sleeping normally': 14, 'Sleeping less than usual': 4, 'Sleeping more than usual': 8, 'Irregular sleep cycle': 0 },
+        'eating-habits': { 'No change': 12, 'Eating less': 4, 'Eating more': 6, 'Skipping meals': 0 },
+        'concentration': { 'Never': 14, 'Sometimes': 6, 'Often': 0 },
+        'mental-exhaustion': { 'No': 14, 'Sometimes': 6, 'Yes': 0 },
+        'support': { 'Friends': 8, 'Family': 9, 'Teachers': 10, 'Counsellor or mentor': 10, 'No one': 0 },
+        'sharing': { 'Yes': 12, 'Sometimes': 6, 'No': 0 },
+        'support-services': { 'Yes': 8, 'No': 0 },
+        'consider-using': { 'Yes': 10, 'Maybe': 6, 'No': 0 },
+        'preferred-support': { 'One-to-one counselling': 4, 'Peer support groups': 2, 'Online or anonymous support': 2, 'Workshops and awareness sessions': 0 },
+        'education': { 'Strongly agree': 10, 'Agree': 8, 'Neutral': 6, 'Disagree': 2, 'Strongly disagree': 0 }
     };
 
     function resizeBackground() {
@@ -281,20 +281,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const stressSources = answers['stress-sources'] || [];
-        score += Math.min(stressSources.length * 3, 18);
+        score += Math.max(0, 18 - stressSources.length * 3);
 
         const coping = answers['coping'] || [];
         let copingScore = 0;
         coping.forEach(item => {
-            if (item === 'Social media') copingScore += 4;
-            if (item === 'Avoiding the problem') copingScore += 6;
-            if (item === 'Sleeping') copingScore += 4;
-            if (item === 'Listening to music') copingScore += 2;
-            if (item === 'Physical activity or yoga') copingScore -= 4;
-            if (item === 'Meditation or relaxation') copingScore -= 3;
-            if (item === 'Talking to someone') copingScore -= 3;
+            if (item === 'Social media') copingScore -= 4;
+            if (item === 'Avoiding the problem') copingScore -= 6;
+            if (item === 'Sleeping') copingScore -= 4;
+            if (item === 'Listening to music') copingScore -= 2;
+            if (item === 'Physical activity or yoga') copingScore += 4;
+            if (item === 'Meditation or relaxation') copingScore += 3;
+            if (item === 'Talking to someone') copingScore += 3;
         });
-        score += Math.max(0, Math.min(copingScore, 16));
+        score += Math.max(0, Math.min(copingScore + 16, 16));
 
         return score;
     }

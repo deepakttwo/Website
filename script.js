@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Modal Management
     const welcomeModal = document.getElementById('welcomeModal');
-    const modalClose = document.querySelector('.modal-close');
+    const modalClose = welcomeModal ? welcomeModal.querySelector('.modal-close') : null;
     const closeModalBtn = document.getElementById('closeModalBtn');
 
     // Close modal function
@@ -54,14 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (welcomeModal) {
             welcomeModal.classList.add('hidden');
             document.body.classList.remove('modal-open');
-        }
-    }
-
-    // Open modal on page load (remove 'hidden' class if added)
-    function openModal() {
-        if (welcomeModal) {
-            welcomeModal.classList.remove('hidden');
-            document.body.classList.add('modal-open');
         }
     }
 
@@ -89,9 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
-
-    // Open modal on page load
-    openModal();
 
     const ageChart = document.getElementById('ageChart');
     const genderChart = document.getElementById('genderChart');

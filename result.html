@@ -9,6 +9,426 @@
 </head>
 <body>
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    
+    <!-- Suggestions Modal for Moderate Score -->
+    <div id="suggestionsModal" class="modal hidden">
+        <div class="modal-content suggestions-modal-content">
+            <button class="modal-close" aria-label="Close popup">&times;</button>
+            <div class="modal-header">
+                <h1>🎬 Lighten Up Your Mood!</h1>
+            </div>
+            <div class="modal-body">
+                <section class="goal-section">
+                    <p class="goal-intro">You're in the moderate range. Sometimes, a good laugh is the best medicine! Here are some amazing <strong>Indian comedy movies and shows</strong> to help you relax and unwind:</p>
+                    
+                    <!-- Hindi Movies -->
+                    <div class="content-category">
+                        <h3 class="category-title">🎥 Hindi Comedy Movies</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZmNjMjA5YjMtOGQyMy00NTBhLWE2MGMtNWE0NWI0YzI3YTVlXkEyXkFqcGc@._V1_.jpg" alt="3 Idiots" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>3 Idiots</h4>
+                                    <p>Friendship & passion</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNjkxNmI1ZjctM2NlYy00YTBmLTg5MGUtZGYwMGI4NzEyNDA2XkEyXkFqcGc@._V1_.jpg" alt="Hera Pheri" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Hera Pheri</h4>
+                                    <p>Classic comedy gold</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNTA1ZGZkMDgtM2MzZC00ZDcyLTg5OWEtMjVhNWMyYzliMzU4XkEyXkFqcGc@._V1_.jpg" alt="Munna Bhai M.B.B.S." loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Munna Bhai M.B.B.S.</h4>
+                                    <p>Laughter with lessons</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZmEwYmNlNTMtNjJlYy00ZjYwLThjNDQtNjVmMjc4YzM4NDM5XkEyXkFqcGc@._V1_.jpg" alt="Andaz Apna Apna" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Andaz Apna Apna</h4>
+                                    <p>Timeless comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNzhhMTA3ODUtMGI1NS00NWE1LTllMzMtMzRmZmIyY2MzNTA3XkEyXkFqcGc@._V1_.jpg" alt="Golmaal" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Golmaal</h4>
+                                    <p>Fun-filled entertainment</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BYWU0ZmMxNjgtODk1YS00NDFjLWEzYzQtMWQxZDc5MmQ3ODI1XkEyXkFqcGc@._V1_.jpg" alt="Stree" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Stree</h4>
+                                    <p>Horror-comedy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hindi Shows -->
+                    <div class="content-category">
+                        <h3 class="category-title">📺 Hindi Comedy Shows</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BM2IyYWI3ZjktMjUzZi00ZWRhLWE5OGMtM2VlNjA0YjA2NjdjXkEyXkFqcGc@._V1_.jpg" alt="Taarak Mehta Ka Ooltah Chashmah" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Taarak Mehta</h4>
+                                    <p>Family fun for all</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMDVlNDdjMmMtYzQ3Yi00NzA1LWFjZDctMjM4ODI5ZDY5NTllXkEyXkFqcGc@._V1_.jpg" alt="Panchayat" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Panchayat</h4>
+                                    <p>Rural comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BYmEzMjM3OTktYzBhNy00NzRjLTkxNmMtNDg4MWNkM2FkNDZlXkEyXkFqcGc@._V1_.jpg" alt="TVF Pitchers" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>TVF Pitchers</h4>
+                                    <p>Startup comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BOWYxMDRkNmYtYzE3OC00NjQ3LTgxMmQtNmFkZjhhMjQ1ZDAxXkEyXkFqcGc@._V1_.jpg" alt="Kota Factory" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Kota Factory</h4>
+                                    <p>Student life humor</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNjlhZGI5MWMtMTg3NC00NWEyLTk4YjktZmI5NDYxMGQ1YjIwXkEyXkFqcGc@._V1_.jpg" alt="Gullak" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Gullak</h4>
+                                    <p>Family slice of life</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tamil Movies -->
+                    <div class="content-category">
+                        <h3 class="category-title">🎬 Tamil Comedy Movies</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BY2IzYjhlYjYtMGI0NS00NzZmLWIwNjMtMmE0ZTZiMmU3ODE5XkEyXkFqcGc@._V1_.jpg" alt="Vikram Vedha" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Vikram Vedha</h4>
+                                    <p>Witty dialogues</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZGE4YjU5N2UtMzZkNS00YTlmLWI5NzUtMzFjNzI2YTBkM2FhXkEyXkFqcGc@._V1_.jpg" alt="Naanum Rowdy Dhaan" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Naanum Rowdy Dhaan</h4>
+                                    <p>Romantic comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMjE3NDk1MzA4NV5BMl5BanBnXkFtZTgwNjYyNjkwNjE@._V1_.jpg" alt="Comali" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Comali</h4>
+                                    <p>Time-travel fun</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZjRhNjRjNDAtNWE4OS00ZThmLWEzZGMtZjg4NWQxNjFmZjM2XkEyXkFqcGc@._V1_.jpg" alt="Varuthapadatha Valibar Sangam" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>VVS</h4>
+                                    <p>Village comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNGExODc1MjQtMjkzMi00YmRkLTllZjUtNjAyNDQxMjY0YjczXkEyXkFqcGc@._V1_.jpg" alt="Iruttu Araiyil Murattu Kuththu" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Soodhu Kavvum</h4>
+                                    <p>Dark comedy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tamil Shows -->
+                    <div class="content-category">
+                        <h3 class="category-title">📺 Tamil Comedy Shows</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/5HpwQvwkMCs/hqdefault.jpg" alt="Lollu Sabha" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Lollu Sabha</h4>
+                                    <p>Spoof comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/oFKblWD3NvA/hqdefault.jpg" alt="Kalakka Povathu Yaaru" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Kalakka Povathu Yaaru</h4>
+                                    <p>Stand-up competition</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/RJvP3mT9jqw/hqdefault.jpg" alt="Cooku with Comali" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Cooku with Comali</h4>
+                                    <p>Cooking + comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/1czrDNjQ1t0/hqdefault.jpg" alt="Adhu Idhu Yedhu" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Adhu Idhu Yedhu</h4>
+                                    <p>Game show comedy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Telugu Movies -->
+                    <div class="content-category">
+                        <h3 class="category-title">🎬 Telugu Comedy Movies</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNzM0N2UzYzAtOGI5ZC00MWIyLWI0MTUtNDM1YzJhOTYwMzAyXkEyXkFqcGc@._V1_.jpg" alt="Ala Vaikunthapurramuloo" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Ala Vaikunthapurramuloo</h4>
+                                    <p>Family entertainer</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMjYxMDQ1NmYtN2Y2YS00YmU0LTlmYjMtMWE1MzNmYTg2YmFhXkEyXkFqcGc@._V1_.jpg" alt="F2" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>F2: Fun & Frustration</h4>
+                                    <p>Marriage comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BNjA5MzU5OGItMjcyYi00NGI1LWE2OGUtNjg5N2E3ODQ2NzVmXkEyXkFqcGc@._V1_.jpg" alt="Jathi Ratnalu" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Jathi Ratnalu</h4>
+                                    <p>Laugh riot</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BYjljMDQxNjAtZWRmMS00ZGJiLTg3YmQtZGZjYWI4YmU5MGE5XkEyXkFqcGc@._V1_.jpg" alt="DJ Tillu" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>DJ Tillu</h4>
+                                    <p>Youth entertainer</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BYjY3ZjYxZWItMjM5YS00MTBlLThmYWItMjM2MThhODU3OGE2XkEyXkFqcGc@._V1_.jpg" alt="Brochevarevaru Ra" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Brochevarevaru Ra</h4>
+                                    <p>Crime comedy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Telugu Shows -->
+                    <div class="content-category">
+                        <h3 class="category-title">📺 Telugu Comedy Shows</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/pLx6EPSwB5Y/hqdefault.jpg" alt="Jabardasth" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Jabardasth</h4>
+                                    <p>Comedy skits</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/sWbA-qpVnMI/hqdefault.jpg" alt="Extra Jabardasth" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Extra Jabardasth</h4>
+                                    <p>Extended comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/jKYf3B3GDMU/hqdefault.jpg" alt="Adhirindi" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Adhirindi</h4>
+                                    <p>Comedy competition</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/VWxKLd6a43E/hqdefault.jpg" alt="Comedy Stars" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Comedy Stars</h4>
+                                    <p>Stand-up & skits</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Malayalam Movies -->
+                    <div class="content-category">
+                        <h3 class="category-title">🎬 Malayalam Comedy Movies</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMjZhZGJlNjAtODljNS00NzBhLTljM2ItYWExNTdhM2VkMjY2XkEyXkFqcGc@._V1_.jpg" alt="Amar Akbar Anthony" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Amar Akbar Anthony</h4>
+                                    <p>Family drama</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMzNiMGFkZjctNDgwZC00OWRjLTkzZTgtNWQxN2QyNjcyODA5XkEyXkFqcGc@._V1_.jpg" alt="Premam" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Premam</h4>
+                                    <p>Romantic comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMjE4NmQ1NGEtMmE1ZS00NjIwLWE2NjEtYTdlZGJmOTYxZDIxXkEyXkFqcGc@._V1_.jpg" alt="Kumbalangi Nights" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Kumbalangi Nights</h4>
+                                    <p>Comedy-drama</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BMzg3ZDVkZGEtZGM2Yi00MTE3LWFhYjAtMmU0YmU0OGRlYjM2XkEyXkFqcGc@._V1_.jpg" alt="Bangalore Days" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Bangalore Days</h4>
+                                    <p>Youth comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BY2I4ZTI3OGEtNjE0Mi00ODc5LTk0MDgtZDY5Yjg1YmJiZjJkXkEyXkFqcGc@._V1_.jpg" alt="Ustad Hotel" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Ustad Hotel</h4>
+                                    <p>Heartfelt comedy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Malayalam Shows -->
+                    <div class="content-category">
+                        <h3 class="category-title">📺 Malayalam Comedy Shows</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/5MgLDz5sKRc/hqdefault.jpg" alt="Comedy Festival" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Comedy Festival</h4>
+                                    <p>Comedy competition</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/9hfHiRXtHxE/hqdefault.jpg" alt="Cinemaa Chirimaa" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Cinemaa Chirimaa</h4>
+                                    <p>Film-based comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/l0N5mQ0Wdl8/hqdefault.jpg" alt="Comedy Utsavam" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Comedy Utsavam</h4>
+                                    <p>Family entertainment</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/OQ9N0AYGF2U/hqdefault.jpg" alt="Badai Bungalow" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Badai Bungalow</h4>
+                                    <p>Celebrity talk show</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kannada Movies -->
+                    <div class="content-category">
+                        <h3 class="category-title">🎬 Kannada Comedy Movies</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BYjYxODZmMjUtOGZhNy00MzMzLWJmYjEtNjM1MzI0YmQ1ODU4XkEyXkFqcGc@._V1_.jpg" alt="Kirik Party" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Kirik Party</h4>
+                                    <p>College life comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BOTA3OWNhMmMtNzI5My00N2JhLWFhNzItN2ExMGNmYjg2Y2U2XkEyXkFqcGc@._V1_.jpg" alt="French Biriyani" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>French Biriyani</h4>
+                                    <p>Hilarious adventure</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZTNhNzEzY2EtZjJlNi00OGUxLTllZDgtNjQyMGY3NDRmNjM2XkEyXkFqcGc@._V1_.jpg" alt="Bell Bottom" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Bell Bottom</h4>
+                                    <p>Rib-tickling comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BYjAzYjhjZjctZWI0MC00NDQ0LTkxMTctMjRmN2I4NTJmMDg0XkEyXkFqcGc@._V1_.jpg" alt="Godhi Banna" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Godhi Banna</h4>
+                                    <p>Emotional comedy</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZjc4MDM2NTMtNDA1NC00ZTU0LWFlZTMtMTQ5YjMyNjk3YjBjXkEyXkFqcGc@._V1_.jpg" alt="Ranga SSSLC" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Ranga SSSLC</h4>
+                                    <p>Classic comedy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kannada Shows -->
+                    <div class="content-category">
+                        <h3 class="category-title">📺 Kannada Comedy Shows</h3>
+                        <div class="thumbnail-grid">
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/wg8J4w1qTdQ/hqdefault.jpg" alt="Majaa Talkies" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Majaa Talkies</h4>
+                                    <p>Comedy talk show</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/F1KQ-7TfBzQ/hqdefault.jpg" alt="Comedy Khiladigalu" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Comedy Khiladigalu</h4>
+                                    <p>Stand-up competition</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/yK5qBxMON1A/hqdefault.jpg" alt="Weekend with Ramesh" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Weekend with Ramesh</h4>
+                                    <p>Talk show with humor</p>
+                                </div>
+                            </div>
+                            <div class="thumbnail-card">
+                                <img src="https://i.ytimg.com/vi/8SXaRBdF3Wk/hqdefault.jpg" alt="Drama Juniors" loading="lazy">
+                                <div class="thumbnail-info">
+                                    <h4>Drama Juniors</h4>
+                                    <p>Kids comedy & drama</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="goal-conclusion">💡 <strong>Pro tip:</strong> Watch with friends or family for double the fun! Laughter releases endorphins and reduces stress hormones. You've got this! 💪</p>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button class="primary-btn modal-action-btn" id="closeSuggestionsBtn">Got It! 🎉</button>
+            </div>
+        </div>
+    </div>
+
     <main class="result-shell">
         <section class="odometer-card tech-glow">
             <h1>Mental Health Meter</h1>

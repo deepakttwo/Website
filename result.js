@@ -247,17 +247,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function messageForScore() {
         if (scorePct <= 33) {
-            return 'You are doing well! Keep nurturing your routines. Remember: hydration is self-care, and your brain deserves rest. Keep shining! ✨';
+            return 'Your score suggests high stress and emotional strain. Please reach out for support soon. Helpline: 1800-599-0019. You are not alone, and help is available. 💙';
         }
         if (scorePct <= 66) {
-            return 'You are in the moderate range. Try small habits: consistent sleep, short walks, journaling, and talking to someone you trust. These can help you move toward green.';
+            return 'You are in the moderate range. Try small habits: consistent sleep, short walks, journaling, and talking to someone you trust. These can help you move toward green. 🌱';
         }
-        return 'Your score suggests high stress and emotional strain. Please reach out for support soon. Helpline: 1800-599-0019. You are not alone, and help is available.';
+        return 'You are doing well! Keep nurturing your routines. Remember: hydration is self-care, and your brain deserves rest. Keep shining! ✨';
     }
 
     // Update UI
     scoreBadge.textContent = `Score: ${scorePct}/100`;
     resultMessage.textContent = messageForScore();
+
+    // Show suggestions popup for moderate score (34-66%)
+    if (scorePct > 33 && scorePct <= 66) {
+        const suggestionsModal = document.getElementById('suggestionsModal');
+        const closeSuggestionsBtn = document.getElementById('closeSuggestionsBtn');
+        const modalCloseBtn = suggestionsModal.querySelector('.modal-close');
+        
+        // Handle images that fail to load - replace with emoji placeholder
+        const thumbnailImages = suggestionsModal.querySelectorAll('.thumbnail-card img');
+        thumbnailImages.forEach(img => {
+            img.onerror = function() {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'thumbnail-placeholder';
+                placeholder.textContent = img.closest('.content-category').querySelector('.category-title').textContent.includes('Shows') ? '📺' : '🎬';
+                img.parentNode.replaceChild(placeholder, img);
+            };
+        });
+        
+        // Show modal after a short delay
+        setTimeout(() => {
+            suggestionsModal.classList.remove('hidden');
+        }, 2500); // Show after needle animation completes
+        
+        // Close modal handlers
+        function closeModal() {
+            suggestionsModal.classList.add('hidden');
+        }
+        
+        closeSuggestionsBtn.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+        
+        // Close on clicking outside modal content
+        suggestionsModal.addEventListener('click', (e) => {
+            if (e.target === suggestionsModal) {
+                closeModal();
+            }
+        });
+    }
 
     homeBtn.addEventListener('click', () => {
         localStorage.removeItem('mentalHealthScore');
